@@ -1,0 +1,32 @@
+application: pathfinder-crafting
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+
+- url: (.*)/
+  static_files: dist\1/index.html
+  upload: dist
+  login: required
+
+- url: (.*)
+  static_files: dist\1
+  upload: dist
+  login: required
+
+skip_files:
+  - ^node_modules$
+  - ^src$
+  - ^test$
+  - ^bower_components$
+  - ^(.*/)?#.*#$
+  - ^(.*/)?.*~$
+  - ^(.*/)?.*\.py[co]$
+  - ^(.*/)?.*/RCS/.*$
+  - ^(.*/)?\..*$
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
