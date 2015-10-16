@@ -1,129 +1,78 @@
 'use strict';
 
 var React = require('react/addons');
-var Reflux = require('reflux');
 var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
-var ButtonInput = require('react-bootstrap').ButtonInput;
-var Col = require('react-bootstrap').Col;
 var Input = require('react-bootstrap').Input;
 var Well = require('react-bootstrap').Well;
-var CraftingStore = require('../stores/CraftingStore');
-var CraftingActionCreators = require('../actions/CraftingActionCreators');
+
 var Scrolldisplay = require('./Scrolldisplay');
-
-
-// Json data
-var SpellData = require('./Spelldata');
+var PaladinScrolls = require('./PaladinScrolls');
+var WizardScrolls = require('./WizardScrolls');
+var BardScrolls = require('./BardScrolls');
+var RangerScrolls = require('./RangerScrolls');
+var SorcererScrolls = require('./SorcererScrolls');
+var ClericScrolls = require('./ClericScrolls');
+var DruidScrolls = require('./DruidScrolls');
 
 require('styles/Scrollgrid.scss');
 
 
-
 var Scrollgrid = React.createClass({
-	mixins: [Reflux.connect(CraftingStore)],
 
 	getInitialState: function() {
 		return {
-			spellName: '',
-			spellCopies: '',
-			onCasterLevelChanged: '',
-			number:''
+			activeKey: 1
 		};
 	},
-	craftScroll: function(e) {
-		e.preventDefault();
-		var nextNumber = '';
-		var newScroll = {
-			spellName: this.state.spellName,
-			spellCopies: this.state.spellCopies,
-			casterLevel: this.state.casterLevel
-		};
-		CraftingActionCreators.craftscroll(newScroll);
-
+	selectPaladinScroll: function() {
+		this.setState({activeKey: 1});
 	},
-	onSpellNameChanged: function(e) {
-		this.setState({spellName: e.target.value});
+	selectWizardScroll: function() {
+		this.setState({activeKey: 2});
 	},
-	onCopiesChanged: function(e) {
-		this.setState({spellCopies: e.target.value});
+	selectBardScroll: function() {
+		this.setState({activeKey: 3});
 	},
-	onCasterLevelChanged: function(e) {
-		this.setState({casterLevel: e.target.value});
+	selectRangerScroll: function() {
+		this.setState({activeKey: 4});
 	},
-	onPaladin: function() {
-		var paladin = SpellData.getSpellType();
-		var paladinSpell = [];
-
-		paladinSpell.push({name: 'Select a Paladin spell'});
-		paladin.forEach(function(paladinObj) {
-			if (paladinObj.paladin !== 'NULL') {
-				paladinSpell.push(paladinObj);
-			}
-		});
-		this.replaceState({paladinSpell: paladinSpell})
+	selectSorcererScroll: function() {
+		this.setState({activeKey: 5});
 	},
-	onWizard: function() {
-		var wizard = SpellData.getSpellType();
-		var wizardSpell = [];
-
-		wizardSpell.push({name: 'Select a Wizard spell'});
-		wizard.forEach(function(wizardObj) {
-			if (wizardObj.wiz !== 'NULL') {
-				wizardSpell.push(wizardObj);
-			}
-		});
-		this.replaceState({wizardSpell: wizardSpell})
+	selectClericScroll: function() {
+		this.setState({activeKey: 6});
+	},
+	selectDruidScroll: function() {
+		this.setState({activeKey: 7});
 	},
 	render: function () {
-		var casterSpell = [];
-		var selectedPaladinSpell = this.state.paladinSpell;
-		var selectedWizardSpell = this.state.wizardSpell;
-		var casterSpells;
-		casterSpell = selectedPaladinSpell || selectedWizardSpell;
-
-		if (casterSpell !== undefined) {
-			casterSpells = casterSpell;
-		} else {
-			casterSpells = [{name: 'none'}];
+		var scrolls = <PaladinScrolls/>;
+		if (this.state.activeKey === 2) {
+			scrolls = <WizardScrolls/>;
+		} else if (this.state.activeKey === 3) {
+			scrolls = <BardScrolls/>;
+		} else if (this.state.activeKey === 4) {
+			scrolls = <RangerScrolls/>;
+		} else if (this.state.activeKey === 5) {
+			scrolls = <SorcererScrolls/>;
+		} else if (this.state.activeKey === 6) {
+			scrolls = <ClericScrolls/>;
+		} else if (this.state.activeKey === 7) {
+			scrolls = <DruidScrolls/>;
 		}
-		var spell = casterSpells.map(function (spell, rank) {
-			return (
-					<option key={rank}>{spell.name}</option>
-			);
-		});
 		return (
 			<div>
-				<form onSubmit={this.craftScroll}>
-					<Button bsStyle='primary' onClick={this.onPaladin}>Paladin</Button>
-					<Button className='button-spaceing' bsStyle='primary' onClick={this.onWizard}>Wizard</Button>
-					<Input label="Spell Name" ref='spellName' type="select" onChange={this.onSpellNameChanged}>{spell}</Input>
-					<Input label="Caster Level" ref='casterLevel' id='casterLevel' type="select" onChange={this.onCasterLevelChanged}>
-						<option>Select caster level</option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-						<option>11</option>
-						<option>12</option>
-						<option>13</option>
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-						<option>19</option>
-						<option>20</option>
-					</Input>
-					<Input label="Number of Copies" ref='spellCopies' type="text" value={this.state.number} placeholder="Enter number of copies" onChange={this.onCopiesChanged}/>
-					<ButtonInput type='submit' value='Scribe Scroll' bsStyle='primary'></ButtonInput>
-				</form>
+				<Button bsStyle="primary" className={this.state.activeKey === 1 ? 'active' : ''} eventKey={1} onClick={this.selectPaladinScroll}>Paladin</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 2 ? 'active' : '', 'button-spaceing'} eventKey={2} onClick={this.selectWizardScroll}>Wizard</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 3 ? 'active' : '', 'button-spaceing'} eventKey={3} onClick={this.selectBardScroll}>Bard</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 4 ? 'active' : '', 'button-spaceing'} eventKey={4} onClick={this.selectRangerScroll}>Ranger</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 5 ? 'active' : '', 'button-spaceing'} eventKey={5} onClick={this.selectSorcererScroll}>Sorcerer</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 6 ? 'active' : '', 'button-spaceing'} eventKey={6} onClick={this.selectClericScroll}>Cleric</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 7 ? 'active' : '', 'button-spaceing'} eventKey={7} onClick={this.selectDruidScroll}>Druid</Button>
+				<Well>
+					{scrolls}
+				</Well>
 				<Well>
 					<Scrolldisplay></Scrolldisplay>
 				</Well>

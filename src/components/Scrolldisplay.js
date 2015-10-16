@@ -10,6 +10,7 @@ require('styles/Scrolldisplay.scss');
 
 var Scrolldisplay = React.createClass({
 	mixins: [Reflux.connect(CraftingStore,'spd')],
+
   render: function() {
   	var spd = this.state.spd;
   	var scrollPrice = 0, days = 0;
@@ -19,9 +20,9 @@ var Scrolldisplay = React.createClass({
   	}
     return (
 		<Panel>
-			<strong>Cost to create scroll(s):</strong> {scrollPrice}gp
+			Cost to create scroll(s): <strong>{scrollPrice}</strong>gp
 			<br></br>
-			<strong>Time for scribing scroll:</strong> {days} Days
+			Time for scribing scroll: <strong>{days}</strong>  Days (If the cost is less than 250gp then crafting time is 2 hours)
 		</Panel>
     );
   }

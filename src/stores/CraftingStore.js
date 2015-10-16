@@ -12,9 +12,9 @@ var CraftingStore = Reflux.createStore({
 
   	onCraftscroll: function(obj) {
 
-      var scrollPrice;
       var days;
       var spd;
+      var spellLevel;
 
       var writingMaterialsCost = 12.5;
 
@@ -28,9 +28,16 @@ var CraftingStore = Reflux.createStore({
           spellCopies = 1;
         }
         if (spellObj === scrollObj.name) {
-          scrollPrice = writingMaterialsCost * scrollObj.SLA_Level * casterLevel * spellCopies;
+          var level = scrollObj.SLA_Level;
+          var price;
+          var scrollPrice = writingMaterialsCost * scrollObj.SLA_Level * casterLevel * spellCopies;
+          if (scrollPrice === 0) {
+            price = 12.5;
+          } else {
+            price = scrollPrice;
+          }
           days = Math.floor(scrollPrice / 1000.0) / 1;
-          spd = {scrollPrice: scrollPrice, days: days};
+          spd = {scrollPrice: price, days: days, casterLevel: casterLevel, spellLevel: level, spellCopies: spellCopies};
         }
       });
         this.trigger(spd);
