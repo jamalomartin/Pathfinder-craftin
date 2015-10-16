@@ -25,8 +25,6 @@ var SpellData = require('./Spelldata');
 })()
 
 
-require('styles/PaladinScrolls.scss');
-
 var BardScrolls = React.createClass({
 	mixins: [Reflux.connect(CraftingStore)],
 

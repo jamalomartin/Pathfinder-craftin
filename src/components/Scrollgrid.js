@@ -3,17 +3,17 @@
 var React = require('react/addons');
 var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
-var ButtonInput = require('react-bootstrap').ButtonInput;
-var Col = require('react-bootstrap').Col;
 var Input = require('react-bootstrap').Input;
 var Well = require('react-bootstrap').Well;
-var Scrolldisplay = require('./Scrolldisplay');
 
+var Scrolldisplay = require('./Scrolldisplay');
 var PaladinScrolls = require('./PaladinScrolls');
 var WizardScrolls = require('./WizardScrolls');
 var BardScrolls = require('./BardScrolls');
 var RangerScrolls = require('./RangerScrolls');
 var SorcererScrolls = require('./SorcererScrolls');
+var ClericScrolls = require('./ClericScrolls');
+var DruidScrolls = require('./DruidScrolls');
 
 require('styles/Scrollgrid.scss');
 
@@ -40,6 +40,12 @@ var Scrollgrid = React.createClass({
 	selectSorcererScroll: function() {
 		this.setState({activeKey: 5});
 	},
+	selectClericScroll: function() {
+		this.setState({activeKey: 6});
+	},
+	selectDruidScroll: function() {
+		this.setState({activeKey: 7});
+	},
 	render: function () {
 		var scrolls = <PaladinScrolls/>;
 		if (this.state.activeKey === 2) {
@@ -50,6 +56,10 @@ var Scrollgrid = React.createClass({
 			scrolls = <RangerScrolls/>;
 		} else if (this.state.activeKey === 5) {
 			scrolls = <SorcererScrolls/>;
+		} else if (this.state.activeKey === 6) {
+			scrolls = <ClericScrolls/>;
+		} else if (this.state.activeKey === 7) {
+			scrolls = <DruidScrolls/>;
 		}
 		return (
 			<div>
@@ -58,6 +68,8 @@ var Scrollgrid = React.createClass({
 				<Button bsStyle="primary" className={this.state.activeKey === 3 ? 'active' : '', 'button-spaceing'} eventKey={3} onClick={this.selectBardScroll}>Bard</Button>
 				<Button bsStyle="primary" className={this.state.activeKey === 4 ? 'active' : '', 'button-spaceing'} eventKey={4} onClick={this.selectRangerScroll}>Ranger</Button>
 				<Button bsStyle="primary" className={this.state.activeKey === 5 ? 'active' : '', 'button-spaceing'} eventKey={5} onClick={this.selectSorcererScroll}>Sorcerer</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 6 ? 'active' : '', 'button-spaceing'} eventKey={6} onClick={this.selectClericScroll}>Cleric</Button>
+				<Button bsStyle="primary" className={this.state.activeKey === 7 ? 'active' : '', 'button-spaceing'} eventKey={7} onClick={this.selectDruidScroll}>Druid</Button>
 				<Well>
 					{scrolls}
 				</Well>
