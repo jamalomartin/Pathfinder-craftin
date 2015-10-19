@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var Row = require('react-bootstrap').Row;
 var Button = require('react-bootstrap').Button;
+var ButtonGroup = require('react-bootstrap').ButtonGroup;
 var Input = require('react-bootstrap').Input;
 var Well = require('react-bootstrap').Well;
 
@@ -14,8 +15,6 @@ var RangerScrolls = require('./RangerScrolls');
 var SorcererScrolls = require('./SorcererScrolls');
 var ClericScrolls = require('./ClericScrolls');
 var DruidScrolls = require('./DruidScrolls');
-
-require('styles/Scrollgrid.scss');
 
 
 var Scrollgrid = React.createClass({
@@ -63,13 +62,17 @@ var Scrollgrid = React.createClass({
 		}
 		return (
 			<div>
-				<Button bsStyle="primary" className={this.state.activeKey === 1 ? 'active' : ''} eventKey={1} onClick={this.selectPaladinScroll}>Paladin</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 2 ? 'active' : '', 'button-spaceing'} eventKey={2} onClick={this.selectWizardScroll}>Wizard</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 3 ? 'active' : '', 'button-spaceing'} eventKey={3} onClick={this.selectBardScroll}>Bard</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 4 ? 'active' : '', 'button-spaceing'} eventKey={4} onClick={this.selectRangerScroll}>Ranger</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 5 ? 'active' : '', 'button-spaceing'} eventKey={5} onClick={this.selectSorcererScroll}>Sorcerer</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 6 ? 'active' : '', 'button-spaceing'} eventKey={6} onClick={this.selectClericScroll}>Cleric</Button>
-				<Button bsStyle="primary" className={this.state.activeKey === 7 ? 'active' : '', 'button-spaceing'} eventKey={7} onClick={this.selectDruidScroll}>Druid</Button>
+				<div className="button-centering">
+					<ButtonGroup>
+						<Button bsStyle="primary" className={this.state.activeKey === 1 ? 'active' : ''} eventKey={1} onClick={this.selectPaladinScroll}>Paladin Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 2 ? 'active' : ''} eventKey={2} onClick={this.selectWizardScroll}>Wizard Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 3 ? 'active' : ''} eventKey={3} onClick={this.selectBardScroll}>Bard Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 4 ? 'active' : ''} eventKey={4} onClick={this.selectRangerScroll}>Ranger Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 5 ? 'active' : ''} eventKey={5} onClick={this.selectSorcererScroll}>Sorcerer Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 6 ? 'active' : ''} eventKey={6} onClick={this.selectClericScroll}>Cleric Scroll</Button>
+						<Button bsStyle="primary" className={this.state.activeKey === 7 ? 'active' : ''} eventKey={7} onClick={this.selectDruidScroll}>Druid Scroll</Button>
+					</ButtonGroup>
+				</div>
 				<Well>
 					{scrolls}
 				</Well>

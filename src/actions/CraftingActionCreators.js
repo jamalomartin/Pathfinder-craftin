@@ -3,7 +3,8 @@
 var Reflux = require('reflux');
 
 var CraftingActionCreators = Reflux.createActions([
-	'craftscroll'
+	'craftscroll',
+	'wand'
 ]);
 
 

@@ -45,6 +45,7 @@ html, body {
   margin: 0 auto 10px;
 }
 
-.button-spaceing {
-  margin-left: 5px;
+.button-centering {
+    width: 50%;
+    margin: 0 auto;
 }

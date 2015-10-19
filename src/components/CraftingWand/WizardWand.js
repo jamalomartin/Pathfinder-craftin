@@ -4,54 +4,53 @@ var React = require('react/addons');
 var Reflux = require('reflux');
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
-var CraftingStore = require('../stores/CraftingStore');
-var CraftingActionCreators = require('../actions/CraftingActionCreators');
+var WandCraftingStore = require('../../stores/WandCraftingStore');
+var CraftingActionCreators = require('../../actions/CraftingActionCreators');
 
 
 
 var data = [];
 var sWizard = [];
 
-var SpellData = require('./Spelldata');
+var SpellData = require('../CraftingScrolls/Spelldata');
 
 (function sData() {
 	data = SpellData.getSpellType();
 	sWizard.push({name: 'Select a Wizard spell'});
 	data.forEach(function(dataObj) {
 		if (dataObj.wiz !== 'NULL') {
-			sWizard.push(dataObj);
+			if (dataObj.SLA_Level <= 4) {
+				sWizard.push(dataObj);
+			}
 		}
 	})
 })()
 
-
-require('styles/PaladinScrolls.scss');
-
-var WizardScrolls = React.createClass({
-	mixins: [Reflux.connect(CraftingStore)],
+var WizardWand = React.createClass({
+	mixins: [Reflux.connect(WandCraftingStore)],
 
 	getInitialState: function() {
 		return {
 			spellName: '',
-			spellCopies: '',
+			wandsCrafted: '',
 			casterLevel: '',
 			wizardSpell: sWizard
 		};
 	},
-	craftScroll: function(e) {
+	craftWand: function(e) {
 		e.preventDefault();
-		var newScroll = {
+		var wand = {
 			spellName: this.state.spellName,
-			spellCopies: this.state.spellCopies,
+			wandsCrafted: this.state.wandsCrafted,
 			casterLevel: this.state.casterLevel
 		};
-		CraftingActionCreators.craftscroll(newScroll);
+		CraftingActionCreators.wand(wand);
 	},
 	onSpellNameChanged: function(e) {
 		this.setState({spellName: e.target.value});
 	},
-	onCopiesChanged: function(e) {
-		this.setState({spellCopies: e.target.value});
+	onCraftingWand: function(e) {
+		this.setState({wandsCrafted: e.target.value});
 	},
 	onCasterLevelChanged: function(e) {
 		this.setState({casterLevel: e.target.value});
@@ -73,7 +72,7 @@ var WizardScrolls = React.createClass({
 		});
 		return (
 			<div>
-				<form onSubmit={this.craftScroll}>
+				<form onSubmit={this.craftWand}>
 					<Input label="Spell Name" ref='spellName' type="select" onChange={this.onSpellNameChanged}>{spell}</Input>
 					<Input label="Caster Level" ref='casterLevel' id='casterLevel' type="select" onChange={this.onCasterLevelChanged}>
 					<option>Select caster level</option>
@@ -98,12 +97,12 @@ var WizardScrolls = React.createClass({
 						<option>19</option>
 						<option>20</option>
 					</Input>
-					<Input label="Number of Copies" ref='spellCopies' type="text" placeholder="Enter number of copies" onChange={this.onCopiesChanged}/>
-					<ButtonInput type='submit' value='Scribe Scroll' bsStyle='primary'></ButtonInput>
+					<Input label="Number of Wands to Craft" ref='wandsCrafted' type="text" placeholder="Enter number of copies" onChange={this.onCraftingWand}/>
+					<ButtonInput type='submit' value='Craft Wand' bsStyle='primary'></ButtonInput>
 				</form>
 			</div>
 		);
 	}
 });
 
-module.exports = WizardScrolls;
+module.exports = WizardWand;

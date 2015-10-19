@@ -2,7 +2,7 @@
 
 var Reflux = require('reflux');
 var React = require('react/addons');
-var CraftingStore = require('../stores/CraftingStore');
+var CraftingStore = require('../../stores/CraftingStore');
 
 var Panel = require('react-bootstrap').Panel;
 

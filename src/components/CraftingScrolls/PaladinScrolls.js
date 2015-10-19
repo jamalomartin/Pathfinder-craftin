@@ -4,28 +4,30 @@ var React = require('react/addons');
 var Reflux = require('reflux');
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
-var CraftingStore = require('../stores/CraftingStore');
-var CraftingActionCreators = require('../actions/CraftingActionCreators');
+var CraftingStore = require('../../stores/CraftingStore');
+var CraftingActionCreators = require('../../actions/CraftingActionCreators');
 
 
 
 var data = [];
-var sDruid = [];
+var sPaladin = [];
 
 var SpellData = require('./Spelldata');
 
 (function sData() {
 	data = SpellData.getSpellType();
-	sDruid.push({name: 'Select a Druid spell'});
+	sPaladin.push({name: 'Select a Paladen spell'});
 	data.forEach(function(dataObj) {
-		if (dataObj.druid !== 'NULL') {
-			sDruid.push(dataObj);
+		if (dataObj.paladin !== 'NULL') {
+			sPaladin.push(dataObj);
 		}
 	})
 })()
 
 
-var DruidScrolls = React.createClass({
+require('styles/PaladinScrolls.scss');
+
+var PaladinScrolls = React.createClass({
 	mixins: [Reflux.connect(CraftingStore)],
 
 	getInitialState: function() {
@@ -33,7 +35,7 @@ var DruidScrolls = React.createClass({
 			spellName: '',
 			spellCopies: '',
 			casterLevel: '',
-			druidSpell: sDruid
+			paladinSpell: sPaladin
 		};
 	},
 	craftScroll: function(e) {
@@ -56,7 +58,7 @@ var DruidScrolls = React.createClass({
 	},
 	render: function () {
 		var casterSpells = [];
-		var casterSpell = this.state.druidSpell;
+		var casterSpell = this.state.paladinSpell;
 
 		if (casterSpell !== undefined) {
 			casterSpells = casterSpell;
@@ -104,4 +106,4 @@ var DruidScrolls = React.createClass({
 	}
 });
 
-module.exports = DruidScrolls;
+module.exports = PaladinScrolls;

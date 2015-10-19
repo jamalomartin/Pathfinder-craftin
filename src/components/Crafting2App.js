@@ -8,8 +8,8 @@ var NavItem = require('react-bootstrap').NavItem;
 var Well = require('react-bootstrap').Well;
 var ReactTransitionGroup = React.addons.TransitionGroup;
 
-var ScrollGrid = require('./Scrollgrid');
-var Wand = require('./Wand');
+var ScrollGrid = require('./CraftingScrolls/Scrollgrid');
+var Wand = require('./CraftingWand/Wandgrid');
 
 // CSS
 require('normalize.css');

@@ -5,13 +5,12 @@ var React = require('react/addons');
 var CraftingActionCreators = require('../actions/CraftingActionCreators');
 
 // Json data
-var SpellData = require('../components/Spelldata');
+var SpellData = require('../components/CraftingScrolls/Spelldata');
 
 var CraftingStore = Reflux.createStore({
   	listenables: [CraftingActionCreators],
 
   	onCraftscroll: function(obj) {
-
       var days;
       var spd;
       var spellLevel;
@@ -30,7 +29,7 @@ var CraftingStore = Reflux.createStore({
         if (spellObj === scrollObj.name) {
           var level = scrollObj.SLA_Level;
           var price;
-          var scrollPrice = writingMaterialsCost * scrollObj.SLA_Level * casterLevel * spellCopies;
+          var scrollPrice = writingMaterialsCost * level * casterLevel * spellCopies;
           if (scrollPrice === 0) {
             price = 12.5;
           } else {

@@ -4,28 +4,28 @@ var React = require('react/addons');
 var Reflux = require('reflux');
 var Input = require('react-bootstrap').Input;
 var ButtonInput = require('react-bootstrap').ButtonInput;
-var CraftingStore = require('../stores/CraftingStore');
-var CraftingActionCreators = require('../actions/CraftingActionCreators');
+var CraftingStore = require('../../stores/CraftingStore');
+var CraftingActionCreators = require('../../actions/CraftingActionCreators');
 
 
 
 var data = [];
-var sCleric = [];
+var sBard = [];
 
 var SpellData = require('./Spelldata');
 
 (function sData() {
 	data = SpellData.getSpellType();
-	sCleric.push({name: 'Select a Cleric spell'});
+	sBard.push({name: 'Select a Bard spell'});
 	data.forEach(function(dataObj) {
-		if (dataObj.cleric !== 'NULL') {
-			sCleric.push(dataObj);
+		if (dataObj.bard !== 'NULL') {
+			sBard.push(dataObj);
 		}
 	})
 })()
 
 
-var ClericScrolls = React.createClass({
+var BardScrolls = React.createClass({
 	mixins: [Reflux.connect(CraftingStore)],
 
 	getInitialState: function() {
@@ -33,7 +33,7 @@ var ClericScrolls = React.createClass({
 			spellName: '',
 			spellCopies: '',
 			casterLevel: '',
-			clericSpell: sCleric
+			bardSpell: sBard
 		};
 	},
 	craftScroll: function(e) {
@@ -56,7 +56,7 @@ var ClericScrolls = React.createClass({
 	},
 	render: function () {
 		var casterSpells = [];
-		var casterSpell = this.state.clericSpell;
+		var casterSpell = this.state.bardSpell;
 
 		if (casterSpell !== undefined) {
 			casterSpells = casterSpell;
@@ -104,4 +104,4 @@ var ClericScrolls = React.createClass({
 	}
 });
 
-module.exports = ClericScrolls;
+module.exports = BardScrolls;
