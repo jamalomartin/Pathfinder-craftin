@@ -3,6 +3,7 @@
 var Reflux = require('reflux');
 var React = require('react/addons');
 var CraftingActionCreators = require('../actions/CraftingActionCreators');
+var ScrollModal = require('../modals/ScrollModal');
 
 // Json data
 var SpellData = require('../components/CraftingScrolls/Spelldata');
@@ -29,8 +30,8 @@ var CraftingStore = Reflux.createStore({
           currentCasterLevel = casterLevel;
           console.log("Yes");
         } else {
-          alert("your caster level is to low to craft this scroll");
-          console.log("No");
+          ScrollModal();
+          console.log("your caster level is to low to craft this scroll");
         }
       }
 
