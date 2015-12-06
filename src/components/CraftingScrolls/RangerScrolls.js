@@ -43,7 +43,8 @@ var RangerScrolls = React.createClass({
 		var newScroll = {
 			spellName: this.state.spellName,
 			spellCopies: this.state.spellCopies,
-			casterLevel: this.state.casterLevel
+			casterLevel: this.state.casterLevel,
+			caster: 'ranger'
 		};
 		CraftingActionCreators.craftscroll(newScroll);
 	},

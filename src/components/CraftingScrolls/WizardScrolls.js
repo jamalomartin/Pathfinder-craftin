@@ -9,23 +9,25 @@ var CraftingActionCreators = require('../../actions/CraftingActionCreators');
 
 
 
+var wData = [];
+var wizardData = [];
 var data = [];
 var sWizard = [];
+
 
 var SpellData = require('./Spelldata');
 
 (function sData() {
-	data = SpellData.getSpellType();
-	sWizard.push({name: 'Select a Wizard spell'});
-	data.forEach(function(dataObj) {
-		if (dataObj.wiz !== 'NULL') {
-			sWizard.push(dataObj);
+	wData = SpellData.getSpellType();
+	wizardData.push({name: 'Select a Wizard spell'});
+	wData.forEach(function(dObj) {
+		if (dObj.wiz !== 'NULL') {
+			wizardData.push({name: dObj.name, spellLevel: dObj.wiz});
 		}
 	})
 })()
 
 
-require('styles/PaladinScrolls.scss');
 
 var WizardScrolls = React.createClass({
 	init: function() {
@@ -37,7 +39,7 @@ var WizardScrolls = React.createClass({
 			spellName: '',
 			spellCopies: '',
 			casterLevel: '',
-			wizardSpell: sWizard
+			wizardSpell: wizardData
 		};
 	},
 	craftScroll: function(e) {
@@ -45,7 +47,8 @@ var WizardScrolls = React.createClass({
 		var newScroll = {
 			spellName: this.state.spellName,
 			spellCopies: this.state.spellCopies,
-			casterLevel: this.state.casterLevel
+			casterLevel: this.state.casterLevel,
+			caster: 'wiz'
 		};
 		CraftingActionCreators.craftscroll(newScroll);
 	},
@@ -68,7 +71,7 @@ var WizardScrolls = React.createClass({
 			casterSpells = [{name: 'none'}];
 		}
 
-		var spell = casterSpell.map(function (spell, rank) {
+		var spell = casterSpells.map(function (spell, rank) {
 			return (
 					<option key={rank}>{spell.name}</option>
 			);

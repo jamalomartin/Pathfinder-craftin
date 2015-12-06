@@ -14,29 +14,63 @@ var CraftingStore = Reflux.createStore({
       var days;
       var spd;
       var spellLevel;
+      var casterSpellLevel;
+      var caster = obj.caster;
+      var casterLevel = obj.casterLevel;
+      var spellCopies = obj.spellCopies;
+      var spellObj = obj.spellName;
+      var spellData = SpellData.getSpellType();
+      var currentCasterLevel;
 
       var writingMaterialsCost = 12.5;
 
-      var casterLevel = obj.casterLevel;
-      var spellCopies = obj.spellCopies;
-  		var spellObj = obj.spellName;
-  		var spellData = SpellData.getSpellType();
+      function validSpellCraft (casterSpellLevel, casterLevel) {
+        if ((casterLevel - 2) >= casterSpellLevel) {
+          currentCasterLevel = casterLevel;
+          console.log("Yes");
+        } else {
+          alert("your caster level is to low to craft this scroll");
+          console.log("No");
+        }
+      }
+
 
       spellData.forEach(function(scrollObj) {
         if (spellCopies === '') {
           spellCopies = 1;
         }
         if (spellObj === scrollObj.name) {
-          var level = scrollObj.SLA_Level;
-          var price;
-          var scrollPrice = writingMaterialsCost * level * casterLevel * spellCopies;
+          if (caster === 'wiz') {
+            casterSpellLevel = scrollObj.wiz;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else if (caster === 'paladin') {
+            casterSpellLevel = scrollObj.paladin;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else if (caster === 'sor') {
+            casterSpellLevel = scrollObj.sor;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else if (caster === 'ranger') {
+            casterSpellLevel = scrollObj.ranger;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else if (caster === 'bard') {
+            casterSpellLevel = scrollObj.bard;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else if (caster === 'cleric') {
+            casterSpellLevel = scrollObj.cleric;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          } else {
+            casterSpellLevel = scrollObj.druid;
+            validSpellCraft(casterSpellLevel, casterLevel);
+          };
+
+          var scrollPrice = writingMaterialsCost * casterSpellLevel * currentCasterLevel * spellCopies;
           if (scrollPrice === 0) {
-            price = 12.5;
+            var price = 12.5;
           } else {
             price = scrollPrice;
           }
           days = Math.floor(scrollPrice / 1000.0) / 1;
-          spd = {scrollPrice: price, days: days, casterLevel: casterLevel, spellLevel: level, spellCopies: spellCopies};
+          spd = {scrollPrice: price, days: days, casterLevel: casterLevel, spellLevel: casterSpellLevel, spellCopies: spellCopies};
         }
       });
         this.trigger(spd);

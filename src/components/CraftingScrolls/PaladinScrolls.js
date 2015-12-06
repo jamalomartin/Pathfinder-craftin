@@ -43,7 +43,8 @@ var PaladinScrolls = React.createClass({
 		var newScroll = {
 			spellName: this.state.spellName,
 			spellCopies: this.state.spellCopies,
-			casterLevel: this.state.casterLevel
+			casterLevel: this.state.casterLevel,
+			caster: 'paladin'
 		};
 		CraftingActionCreators.craftscroll(newScroll);
 	},

@@ -41,7 +41,8 @@ var SorcererScrolls = React.createClass({
 		var newScroll = {
 			spellName: this.state.spellName,
 			spellCopies: this.state.spellCopies,
-			casterLevel: this.state.casterLevel
+			casterLevel: this.state.casterLevel,
+			caster: 'sor'
 		};
 		CraftingActionCreators.craftscroll(newScroll);
 	},
